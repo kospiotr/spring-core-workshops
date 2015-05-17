@@ -59,7 +59,7 @@ Existing application doesn't use Spring Framework but it's fully functional prod
 
 ## Model
 
-Loans scoring system. You give it a Loan Application (application - somebody applies for a loan). It fires up Fraud Detection System, verifies if it is a fraud or not. If not, it fires up scoring rules (many), sums up scores. Returns score. All scoring rules, have configurable max score. There are two Fraud Detectors implementations, one for Poland, one for UK. There should be two scoring systems (UK, Poland), but they work the same, except for Fraud Detector.
+Loans scoring system. You give it a Loan Application (application - somebody applies for a creditRequest). It fires up Fraud Detection System, verifies if it is a fraud or not. If not, it fires up scoring rules (many), sums up scores. Returns score. All scoring rules, have configurable max score. There are two Fraud Detectors implementations, one for Poland, one for UK. There should be two scoring systems (UK, Poland), but they work the same, except for Fraud Detector.
 
 ## Class structure
 
@@ -78,11 +78,11 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 
 ## XML configuration source
 
-* Register ScoreCalculator with constructor injection
-* Register ScoreCalculator with setter injection
-* Register ScoreCalculator with a factory method
+* Register pkoBp ScoreCalculator with constructor injection
+* Register mBank ScoreCalculator with setter injection
+* Register alior ScoreCalculator with a factory method
 * Register Scoring Rules with a parent (bean definition inheritance)
-* Register two ScoreCalculators, one for PL, one for UK
+* Register two ScoreCalculators (bzWbk, barclays), one for PL, one for UK
 
 
 ## Scopes
@@ -128,11 +128,11 @@ Requirements we're going to work on:
 * We need an application for giving loans.
 * We give loans for a week, two weeks, three weeks, or for a month.
 * A logged user can see his loans, see his extensions, and what he owns.
-* A logged user can apply for a loan by entering the amount and choosing term.
-* A logged user can extend his loan for 1 week.
-* The interest for a loan is 1% per day. But when extending, the interest goes up by 10%.
+* A logged user can apply for a creditRequest by entering the amount and choosing term.
+* A logged user can extend his creditRequest for 1 week.
+* The interest for a creditRequest is 1% per day. But when extending, the interest goes up by 10%.
 * User cannot have more than 3 active loans. The number of extensions is unlimited.
-* We need an HTTP API for another system, to inform us, when a loan is paid up.
+* We need an HTTP API for another system, to inform us, when a creditRequest is paid up.
 * When we have an error, user should be redirected to “we are sorry” page.
 
 # Spring AOP
@@ -140,7 +140,7 @@ Requirements we're going to work on:
 * The front page is often accessed. Create an aspect, which will cache list of loans for a user, without hitting a repository.
 
 # Spring Data JPA
-* Change our loan application so that it works on the database
+* Change our creditRequest application so that it works on the database
 
 # Spring Boot
 
