@@ -4,13 +4,13 @@ layout: default
 
 # Add dependency
 
-```xml
+<code>
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-context</artifactId>
     <version>...</version>
 </dependency>
-```
+</code>
 
 # Initialize Application Context
 
