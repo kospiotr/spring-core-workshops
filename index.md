@@ -78,11 +78,11 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 
 ## XML configuration source
 
-* Register pkoBp ScoreCalculator with constructor injection
-* Register mBank ScoreCalculator with setter injection
-* Register alior ScoreCalculator with a factory method
+* Register ScoreCalculator with constructor injection
+* Register ScoreCalculator with setter injection
+* Register ScoreCalculator with a factory method
 * Register Scoring Rules with a parent (bean definition inheritance)
-* Register two ScoreCalculators (bzWbk, barclays), one for PL, one for UK
+* Register two ScoreCalculators, one for PL, one for UK
 
 
 ## Scopes
