@@ -14,7 +14,7 @@ layout: default
 
 # Initialize Application Context
 
-```App.java```:
+```App.java``` :
 
 ```java
 ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml");
@@ -26,7 +26,7 @@ ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml");
 * Use empty ScoringRule list
 * What is scoring result for young and rich user? - 0
 
-```context.xml```:
+```context.xml``` :
 
 ```xml
 <bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator">
@@ -38,9 +38,10 @@ ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml");
         </list>
     </constructor-arg>
 </bean>
+
 ```
 
-```App.java```:
+```App.java``` :
 
 ```java
 Loan loan = new Loan(1000, User.youngRichUser());
@@ -49,13 +50,13 @@ ScoreCalculator calculator = ctx.getBean("calculator", ScoreCalculator.class);
 System.out.println("score = " + calculator.getScore(loan));
 ```
 
-# Register calculator ScoreCalculator with setter injection
+# Register ScoreCalculator with setter injection
 
 * Use PolishFraudDetector inner bean
 * Use empty ScoringRule list
 * What is scoring result for young and rich user? - 0
 
-```context.xml```:
+```context.xml``` :
 
 ```xml
 <bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator">
@@ -69,7 +70,7 @@ System.out.println("score = " + calculator.getScore(loan));
 </bean>
 ```
 
-```App.java```:
+```App.java``` :
 
 ```java
 Loan loan = new Loan(1000, User.youngRichUser());
@@ -84,7 +85,7 @@ System.out.println("score = " + calculator.getScore(loan));
 * Use empty ScoringRule list
 * What is scoring result for young and rich user? - 0
 
-```context.xml```:
+```context.xml``` :
 
 ```xml
 <bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator" factory-method="createInstance">
@@ -98,7 +99,7 @@ System.out.println("score = " + calculator.getScore(loan));
 </bean>
 ```
 
-```App.java```:
+```App.java``` :
 
 ```java
 Loan loan = new Loan(1000, User.youngRichUser());
@@ -113,7 +114,7 @@ System.out.println("score = " + calculator.getScore(loan));
 * What is scoring result for young and rich user now? - 126 000
 * Is it clean? How can we define rule list in one place and use it in all beans? - No, should use composition over inheritance!
 
-```context.xml```:
+```context.xml``` :
 
 ```xml
 <bean id="scoringRules" abstract="true">
@@ -155,7 +156,7 @@ System.out.println("score = " + calculator.getScore(loan));
 
 Without using inheritance:
 
-```context.xml```:
+```context.xml``` :
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -197,7 +198,7 @@ Without using inheritance:
 
 * Use bean reference
 
-```context.xml```:
+```context.xml``` :
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -232,7 +233,7 @@ Without using inheritance:
 
 * Add this rule to ScoringRules. Register it once, and verify what object hash for this rule, both scoring calculators (PL and UK) have.
 
-```RememberingLastScoreRule```:
+```RememberingLastScoreRule``` :
 
 ```java
 package com.github.kospiotr.springcore.scoring;
@@ -258,7 +259,7 @@ public class RememberingLastScoreRule implements ScoringRule {
 }
 ```
 
-```UserScoreRegistry```:
+```UserScoreRegistry``` :
 
 ```java
 package com.github.kospiotr.springcore;
@@ -284,7 +285,7 @@ public class UserScoreRegistry {
 }
 ```
 
-```ScoreCalculator```:
+```ScoreCalculator``` :
 
 ```java
 package com.github.kospiotr.springcore;
@@ -319,7 +320,7 @@ public class ScoreCalculator {
 }
 ```
 
-```context.xml```:
+```context.xml``` :
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -355,7 +356,7 @@ public class ScoreCalculator {
 </beans>
 ```
 
-```App.java```:
+```App.java``` :
 
 ```java
 Loan loan = new Loan(1000, User.youngRichUser());
@@ -383,7 +384,7 @@ score = 139986
 
 * Check if object hashes differ between this rule for PL and UK
 
-```context.xml```:
+```context.xml``` :
 
 ```xml
 ...    
