@@ -7,7 +7,7 @@
 
     <bean id="polishFraudDetector" class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
     <bean id="englishFraudDetector" class="com.github.kospiotr.springcore.fraud.EnglishFraudDetector"/>
-    <bean id="userScoreRegistry" class="com.github.kospiotr.springcore.UserScoreRegistry"/>
+    <bean id="userScoreRegistry" class="com.github.kospiotr.springcore.UserScoreRegistry" scope="prototype"/>
 
     <util:list id="rulesList" value-type="com.github.kospiotr.springcore.scoring.ScoringRule">
         <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
