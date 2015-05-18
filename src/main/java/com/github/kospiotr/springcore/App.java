@@ -11,10 +11,15 @@ public class App {
 		Loan loan = new Loan(1000, User.youngRichUser());
 
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml");
-		ScoreCalculator calculator = ctx.getBean(ScoreCalculator.class);
-		System.out.println("score = " + calculator.getScore(loan));
-		System.out.println("score = " + calculator.getScore(loan));
-		System.out.println("score = " + calculator.getScore(loan));
+		PolishScoreCalculator plCalculator = ctx.getBean(PolishScoreCalculator.class);
+		System.out.println("score = " + plCalculator.getScore(loan));
+		System.out.println("score = " + plCalculator.getScore(loan));
+		System.out.println("score = " + plCalculator.getScore(loan));
+
+		EnglishScoreCalculator enCalculator = ctx.getBean(EnglishScoreCalculator.class);
+		System.out.println("score = " + enCalculator.getScore(loan));
+		System.out.println("score = " + enCalculator.getScore(loan));
+		System.out.println("score = " + enCalculator.getScore(loan));
 
 	}
 }

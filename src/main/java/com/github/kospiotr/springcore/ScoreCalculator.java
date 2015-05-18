@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
-public class ScoreCalculator {
+public abstract class ScoreCalculator {
 
 
 	private FraudDetector fraudDetector;
@@ -21,8 +20,7 @@ public class ScoreCalculator {
 		System.out.println("Constructing ScoreCalculator");
 	}
 
-	@Autowired
-	public ScoreCalculator(@Qualifier("polishFraudDetector") FraudDetector fraudDetector, List<ScoringRule> scoringRules, UserScoreRegistry userScoreRegistry) {
+	public ScoreCalculator(FraudDetector fraudDetector, List<ScoringRule> scoringRules, UserScoreRegistry userScoreRegistry) {
 		System.out.println("Constructing ScoreCalculator with all arguments");
 		this.fraudDetector = fraudDetector;
 		this.scoringRules = scoringRules;
