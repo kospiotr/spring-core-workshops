@@ -10,20 +10,17 @@ public class ScoreCalculator {
 
 	private FraudDetector fraudDetector;
 	private List<ScoringRule> scoringRules;
-
-	public static ScoreCalculator createInstance(FraudDetector fraudDetector, List<ScoringRule> scoringRules) {
-		System.out.println("Constructing with ScoreCalculator factory method");
-		return new ScoreCalculator(fraudDetector, scoringRules);
-	}
+	private UserScoreRegistry userScoreRegistry;
 
 	public ScoreCalculator() {
 		System.out.println("Constructing ScoreCalculator");
 	}
 
-	public ScoreCalculator(FraudDetector fraudDetector, List<ScoringRule> scoringRules) {
+	public ScoreCalculator(FraudDetector fraudDetector, List<ScoringRule> scoringRules, UserScoreRegistry userScoreRegistry) {
 		System.out.println("Constructing ScoreCalculator with all arguments");
 		this.fraudDetector = fraudDetector;
 		this.scoringRules = scoringRules;
+		this.userScoreRegistry = userScoreRegistry;
 	}
 
 	public Integer getScore(Loan loan) {
@@ -33,6 +30,7 @@ public class ScoreCalculator {
 				.stream()
 				.mapToInt(rule -> rule.getScore(loan))
 				.sum();
+		userScoreRegistry.setLastScoreForUser(loan.getUser(), score);
 		return score;
 	}
 
@@ -54,4 +52,12 @@ public class ScoreCalculator {
 		this.scoringRules = scoringRules;
 	}
 
+	public UserScoreRegistry getUserScoreRegistry() {
+		return userScoreRegistry;
+	}
+
+	public void setUserScoreRegistry(UserScoreRegistry userScoreRegistry) {
+		System.out.println("Injecting userScoreRegistry=" + userScoreRegistry);
+		this.userScoreRegistry = userScoreRegistry;
+	}
 }
