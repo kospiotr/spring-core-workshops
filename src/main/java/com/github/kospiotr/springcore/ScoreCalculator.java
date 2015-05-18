@@ -11,6 +11,10 @@ public class ScoreCalculator {
 	private FraudDetector fraudDetector;
 	private List<ScoringRule> scoringRules;
 
+	public static ScoreCalculator createInstance(FraudDetector fraudDetector, List<ScoringRule> scoringRules) {
+		return new ScoreCalculator(fraudDetector, scoringRules);
+	}
+
 	public ScoreCalculator() {
 		System.out.println("Constructing ScoreCalculator");
 	}
