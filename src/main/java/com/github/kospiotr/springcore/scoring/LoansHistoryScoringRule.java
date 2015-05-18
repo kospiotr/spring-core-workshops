@@ -4,7 +4,11 @@ import com.github.kospiotr.springcore.model.Loan;
 
 public class LoansHistoryScoringRule implements ScoringRule {
 
-	int previousScore = 0;
+	private int previousScore = 0;
+
+	public LoansHistoryScoringRule() {
+		System.out.println("Constructed LoansHistoryScoringRule");
+	}
 
 	@Override
 	public Integer getScore(Loan loan) {
