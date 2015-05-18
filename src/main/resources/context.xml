@@ -7,7 +7,7 @@
 
     <bean id="polishFraudDetector" class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
     <bean id="englishFraudDetector" class="com.github.kospiotr.springcore.fraud.EnglishFraudDetector"/>
-    <bean id="userScoreRegistry" class="com.github.kospiotr.springcore.UserScoreRegistry" scope="prototype"/>
+    <bean id="userScoreRegistry" class="com.github.kospiotr.springcore.UserScoreRegistry"/>
 
     <util:list id="rulesList" value-type="com.github.kospiotr.springcore.scoring.ScoringRule">
         <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
@@ -17,16 +17,14 @@
         </bean>
     </util:list>
 
-    <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
+    <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator" autowire="byType">
         <property name="fraudDetector" ref="polishFraudDetector"/>
         <property name="scoringRules" ref="rulesList"/>
-        <property name="userScoreRegistry" ref="userScoreRegistry"/>
     </bean>
 
-    <bean id="enCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
+    <bean id="enCalculator" class="com.github.kospiotr.springcore.ScoreCalculator" autowire="byType">
         <property name="fraudDetector" ref="englishFraudDetector"/>
         <property name="scoringRules" ref="rulesList"/>
-        <property name="userScoreRegistry" ref="userScoreRegistry"/>
     </bean>
 
 </beans>
