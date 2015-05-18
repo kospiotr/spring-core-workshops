@@ -8,6 +8,6 @@ public class LoansHistoryScoringRule implements ScoringRule {
 
 	@Override
 	public Integer getScore(Loan loan) {
-		return previousScore += 10;
+		return previousScore += 100;
 	}
 }
