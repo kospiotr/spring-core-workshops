@@ -5,15 +5,21 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
+    <bean id="polishFraudDetector" class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
+    <bean id="englishFraudDetector" class="com.github.kospiotr.springcore.fraud.EnglishFraudDetector"/>
+
     <util:list id="rulesList" value-type="com.github.kospiotr.springcore.scoring.ScoringRule">
         <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
         <bean class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
     </util:list>
 
-    <bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator">
-        <property name="fraudDetector">
-            <bean class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
-        </property>
+    <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
+        <property name="fraudDetector" ref="englishFraudDetector"/>
+        <property name="scoringRules" ref="rulesList"/>
+    </bean>
+
+    <bean id="enCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
+        <property name="fraudDetector" ref="polishFraudDetector"/>
         <property name="scoringRules" ref="rulesList"/>
     </bean>
 
