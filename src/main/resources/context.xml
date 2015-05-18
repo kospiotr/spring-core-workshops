@@ -3,13 +3,18 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator">
-        <property name="fraudDetector">
-            <bean class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
-        </property>
+    <bean id="scoringRules" abstract="true">
         <property name="scoringRules">
             <list>
+                <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
+                <bean class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
             </list>
+        </property>
+    </bean>
+
+    <bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator" parent="scoringRules">
+        <property name="fraudDetector">
+            <bean class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
         </property>
     </bean>
 
