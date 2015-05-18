@@ -74,6 +74,10 @@ And make sure you have following console output:
 > loan = Loan{amount=1000, user=User{name='User', age=26, wage=10000}}
 ```
 
+# Session chat
+
+[https://chatstep.com/#spring](https://chatstep.com/#spring)
+
 # Application architecture
 Existing application doesn't use Spring Framework but it's fully functional product. As a maintaining team your goal is to make it working with Spring and then add new features.
 
@@ -83,14 +87,14 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 
 ## Class structure
 
-* ScoreCalculator (main class)
-* FraudDetector
-  * PolishFraudDetector
-  * EnglishFraudDetector
-* Scoring Rule
-  * AgeScoringRule
-  * LoansHistoryScoringRule
-  * JobScoringRule
+* ```ScoreCalculator``` (main class)
+* ```FraudDetector``` (interface)
+  * ```PolishFraudDetector````
+  * ```EnglishFraudDetector```
+* ```Scoring Rule``` (interface)
+  * ```AgeScoringRule```
+  * ```LoansHistoryScoringRule```
+  * ```JobScoringRule```
 
 
 
@@ -98,22 +102,22 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 
 ## XML configuration source
 
-* Register ScoreCalculator with constructor injection
-* Register ScoreCalculator with setter injection
-* Register ScoreCalculator with a factory method
-* Register Scoring Rules with a parent (bean definition inheritance)
-* Register two ScoreCalculators, one for PL, one for UK
+* Register ```ScoreCalculator``` with constructor injection
+* Register ```ScoreCalculator``` with a factory method
+* Register ```ScoreCalculator``` with setter injection
+* Register ```ScoringRules``` with a parent (bean definition inheritance)
+* Register two ```ScoreCalculators```, one for PL, one for UK
 
 ## Scopes
 
-* Make a new Rule: remembering last score for a given user. Add %10 points of last score to new score.
-* Add this rule to ScoringRules. Register it once, and verify what object hash for this rule, both scoring calculators (PL and UK) have.
-* Make it so that each Scoring Caclulator has a different instance of this bean, using prototype scope.
+* Make a new ```ScoringRule```: remembering last score for a given user. Add %10 points of last score to new score.
+* Add this rule to ```scoringRules``` in ```ScoreCalculator```. Register it once, and verify what object hash for this rule, both scoring calculators (PL and UK) have.
+* Make it so that each ```ScoreCalculator``` has a different instance of this bean, using prototype scope.
 * Check if object hashes differ between this rule for PL and UK
 
 ## Autowire
 
-* Make both ScoreCalculator autowire dependencies
+* Make both ```ScoreCalculator``` autowire dependencies
 
 ## Annotations
 
@@ -122,8 +126,20 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 * Try to register two ScoreCalculators, one for PL, one for UK
 
 ## Properties
-* Move database login and password to properties file
-* Move security login and password to properties file
+
+* Create sample String properties in ```UserScoreRegistry``` with default values. We assume using webservice and we will use credentials to access it and then  store and retrieve values - just print out ```username``` and ```password``` fields
+* Move webservice login and password to properties file
+
+## Lifecycle
+
+* Add ```UserScoreRegistry``` to initialize webservice after constructing object
+
+## Java Config
+
+* Replace XML with Java configuration with removed all annotations in previous classes. Create a configuration class ```AppConfig``` and register two ```ScoreCalculators```, one for PL, one for UK via ```@Bean```
+* Make UK ```ScoreCalculator``` using autowired ```userScoreRegistry``` property
+* Fix credentials for ```UserScoreRegistry```
+* Add annotations and use ```@ComponentScan``` where possible
 
 ## Testing
 * Create integration test
@@ -133,13 +149,6 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 * Create LoansHistoryScoringRuleStub, that always gives 100 points.
 * Register LoansHistoryScoringRuleStub so that it works only in tests.
 * Register LoansHistoryScoringRule so that it works only in production and development.
-
-## Java Config
-
-* Remove all annotations
-* Create a @Configuration class and register two ScoreCalculators, one for PL, one for UK via @Bean
-* How many times AgeScoringRule are created?
-* Remove @Configuration, add @Bean to @Component. How many times AgeScoringRule are created?
 
 # Spring MVC
 
