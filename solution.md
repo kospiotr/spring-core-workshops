@@ -401,3 +401,58 @@ score = 126000
 score = 126000
 ```
 
+
+# Make both ScoreCalculator autowire dependencies
+
+* Is it possible?
+* Which properties can be autowired? - Only rulesList can be autowired by type and by name
+
+```xml
+    <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator" autowire="byType">
+        <property name="fraudDetector" ref="polishFraudDetector"/>
+        <property name="scoringRules" ref="rulesList"/>
+    </bean>
+```
+
+# Remove all xml definitions
+
+```context.xml``` :
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.github.kospiotr.springcore"/>
+
+</beans>
+```
+
+```ScoreCalculator``` :
+
+* Mark class with ```@Component``` or ```@Named```
+* Mark ```fraudDetector``` with ```@Autowired``` and ```@Qualifier("polishFraudDetector")``` 
+* Mark ```scoringRules``` with ```@Autowired```
+* Mark ```userScoreRegistry``` with ```@Autowired```
+
+```UserScoreRegistry``` , ```AgeScoringRule``` , ```JobScoringRule``` :
+
+* Mark class with ```@Component``` or ```@Named```
+
+```EnglishFraudDetector``` :
+
+* Mark class with ```@Component``` or ```@Named``` and ```@Qualifier("englishFraudDetector")```
+
+```PolishFraudDetector``` :
+
+* Mark class with ```@Component``` or ```@Named``` and ```@Qualifier("polishFraudDetector")```
+
+```RememberingLastScoreRule``` :
+
+* Mark class with ```@Component``` or ```@Named```
+* Mark constructor with ```@Autowired```
+    

@@ -44,14 +44,34 @@ layout: default
 
 Clone initial project:
 
+* via ssh:
+
 ```bash
 git clone git@github.com:kospiotr/spring-workshops.git
+```
+
+* or via https if you don't have Github account and you've never bind your publish key with it:
+
+```bash
+git clone https://github.com/kospiotr/spring-workshops.git
 ```
 
 Install with Maven:
 
 ```bash
 mvn clean install
+```
+
+Run with Maven:
+
+```bash
+mvn clean exec:java
+```
+
+And make sure you have following console output:
+
+```bash
+> loan = Loan{amount=1000, user=User{name='User', age=26, wage=10000}}
 ```
 
 # Application architecture
@@ -84,7 +104,6 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 * Register Scoring Rules with a parent (bean definition inheritance)
 * Register two ScoreCalculators, one for PL, one for UK
 
-
 ## Scopes
 
 * Make a new Rule: remembering last score for a given user. Add %10 points of last score to new score.
@@ -92,19 +111,14 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 * Make it so that each Scoring Caclulator has a different instance of this bean, using prototype scope.
 * Check if object hashes differ between this rule for PL and UK
 
-## Profiles
+## Autowire
 
-* Create LoansHistoryScoringRuleStub, that always gives 100 points.
-* Register LoansHistoryScoringRuleStub so that it works only in tests.
-* Register LoansHistoryScoringRule so that it works only in production and development.
+* Make both ScoreCalculator autowire dependencies
 
 ## Annotations
 
-* Remove xml
-* Register ScoreCalculator with ```@Component```
-* Inject other bean with ```@Inject```
-* Inject FraudDetector while having two beans implementing an interface (```@Qualifier```)
-* ```@Inject``` a constructor
+* Remove all xml definitions from ```context.xml``` and add only ```<context:component-scan base-package="com.github.kospiotr.springcore"/>```. Register components with ```@Component``` or ```@Named```. Inject bean with ```@Autorired``` or ```@Inject```. Inject ```PolishFraudDetector``` while having two beans implementing an interface (```@Qualifier```). Change retrieving beans to ```getBean(ScoreCalculator.class)```
+* Inject dependencies with constructor
 * Try to register two ScoreCalculators, one for PL, one for UK
 
 ## Properties
@@ -113,6 +127,12 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 
 ## Testing
 * Create integration test
+
+## Profiles
+
+* Create LoansHistoryScoringRuleStub, that always gives 100 points.
+* Register LoansHistoryScoringRuleStub so that it works only in tests.
+* Register LoansHistoryScoringRule so that it works only in production and development.
 
 ## Java Config
 
