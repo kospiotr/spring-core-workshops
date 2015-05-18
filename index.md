@@ -23,7 +23,6 @@ layout: default
   * Testing
   
 * Lectures: [http://kospiotr.github.io/wiki/spring-framework-core.html](http://kospiotr.github.io/wiki/spring-framework-core.html)
-* Workshop branch: spring-core
 
 ##Day 2
 
@@ -79,11 +78,12 @@ And make sure you have following console output:
 [https://chatstep.com/#spring](https://chatstep.com/#spring)
 
 # Application architecture
-Existing application doesn't use Spring Framework but it's fully functional product. As a maintaining team your goal is to make it working with Spring and then add new features.
+
+As a development team your goal is to make application working with Spring and then add new features. Most of components were given to you below.
 
 ## Model
 
-Loans scoring system. You give it a Loan Application (application - somebody applies for a creditRequest). It fires up Fraud Detection System, verifies if it is a fraud or not. If not, it fires up scoring rules (many), sums up scores. Returns score. All scoring rules, have configurable max score. There are two Fraud Detectors implementations, one for Poland, one for UK. There should be two scoring systems (UK, Poland), but they work the same, except for Fraud Detector.
+Loans scoring system. You give it a Loan Application (application - somebody applies for a creditRequest). It fires up Fraud Detection System, verifies if it is a fraud or not. If not, it fires up scoring rules (many), sums up scores. Returns score. There are two Fraud Detectors implementations, one for Poland, one for UK. There should be two scoring systems (UK, Poland), but they work the same, except for Fraud Detector.
 
 ## Class structure
 
@@ -96,8 +96,6 @@ Loans scoring system. You give it a Loan Application (application - somebody app
   * ```LoansHistoryScoringRule```
   * ```JobScoringRule```
 
-
-
 # Spring Core
 
 ## XML configuration source
@@ -106,12 +104,12 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 * Register ```ScoreCalculator``` with a factory method
 * Register ```ScoreCalculator``` with setter injection
 * Register ```ScoringRules``` with a parent (bean definition inheritance)
-* Register two ```ScoreCalculators```, one for PL, one for UK
+* Register two ```ScoreCalculators``` , one for PL, one for UK
 
 ## Scopes
 
-* Make a new ```ScoringRule```: remembering last score for a given user. Add %10 points of last score to new score.
-* Add this rule to ```scoringRules``` in ```ScoreCalculator```. Register it once, and verify what object hash for this rule, both scoring calculators (PL and UK) have.
+* Make a new ```ScoringRule``` : remembering last score for a given user. Add %10 points of last score to new score.
+* Add this rule to ```scoringRules``` in ```ScoreCalculator``` . Register it once, and verify what object hash for this rule, both scoring calculators (PL and UK) have.
 * Make it so that each ```ScoreCalculator``` has a different instance of this bean, using prototype scope.
 * Check if object hashes differ between this rule for PL and UK
 
@@ -142,13 +140,8 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 * Add annotations and use ```@ComponentScan``` where possible
 
 ## Testing
+
 * Create integration test
-
-## Profiles
-
-* Create LoansHistoryScoringRuleStub, that always gives 100 points.
-* Register LoansHistoryScoringRuleStub so that it works only in tests.
-* Register LoansHistoryScoringRule so that it works only in production and development.
 
 # Spring MVC
 
@@ -165,10 +158,12 @@ Requirements we're going to work on:
 * When we have an error, user should be redirected to “we are sorry” page.
 
 # Spring AOP
+
 * In order to improve logging create logger for input and output data of annotated method.
 * The front page is often accessed. Create an aspect, which will cache list of loans for a user, without hitting a repository.
 
 # Spring Data JPA
+
 * Change our creditRequest application so that it works on the database
 
 # Spring Boot
