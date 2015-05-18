@@ -1,7 +1,9 @@
 package com.github.kospiotr.springcore.scoring;
 
 import com.github.kospiotr.springcore.model.Loan;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LoansHistoryScoringRule implements ScoringRule {
 
 	private int previousScore = 0;

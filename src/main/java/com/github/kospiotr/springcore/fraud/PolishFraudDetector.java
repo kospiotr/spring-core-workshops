@@ -1,8 +1,8 @@
 package com.github.kospiotr.springcore.fraud;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-@Qualifier("polishFraudDetector")
+@Component
 public class PolishFraudDetector implements FraudDetector {
 
 	public PolishFraudDetector() {
