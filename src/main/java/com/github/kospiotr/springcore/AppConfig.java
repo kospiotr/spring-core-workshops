@@ -9,12 +9,15 @@ import com.github.kospiotr.springcore.scoring.ScoringRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
 @Configuration
+@PropertySource(value = "classpath:config.properties", name = "locations")
 public class AppConfig {
 
 
@@ -41,5 +44,10 @@ public class AppConfig {
 				new JobScoringRule(),
 				new RememberingLastScoreRule(userScoreRegistry()));
 		return scoringRules;
+	}
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer properties() {
+		return new PropertySourcesPlaceholderConfigurer();
 	}
 }
