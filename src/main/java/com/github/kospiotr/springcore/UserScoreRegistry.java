@@ -2,13 +2,11 @@ package com.github.kospiotr.springcore;
 
 import com.github.kospiotr.springcore.model.User;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
 public class UserScoreRegistry {
 
 	private Map<User, Integer> lastScoreForUser = new ConcurrentHashMap<>();
@@ -18,6 +16,10 @@ public class UserScoreRegistry {
 
 	@Value("${password}")
 	private String password = "DefaultPassword";
+
+	public UserScoreRegistry() {
+		System.out.println("Constructing UserScoreRegistry");
+	}
 
 	@PostConstruct
 	public void init() {

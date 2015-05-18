@@ -1,9 +1,7 @@
 package com.github.kospiotr.springcore.scoring;
 
 import com.github.kospiotr.springcore.model.Loan;
-import org.springframework.stereotype.Component;
 
-@Component
 public class JobScoringRule implements ScoringRule {
 
 	public JobScoringRule() {
