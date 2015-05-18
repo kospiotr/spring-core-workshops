@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="scoringRules" abstract="true">
-        <property name="scoringRules">
-            <list>
-                <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
-                <bean class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
-            </list>
-        </property>
-    </bean>
+    <util:list id="rulesList" value-type="com.github.kospiotr.springcore.scoring.ScoringRule">
+        <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
+        <bean class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
+    </util:list>
 
-    <bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator" parent="scoringRules">
+    <bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator">
         <property name="fraudDetector">
             <bean class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
         </property>
+        <property name="scoringRules" ref="rulesList"/>
     </bean>
 
 </beans>
