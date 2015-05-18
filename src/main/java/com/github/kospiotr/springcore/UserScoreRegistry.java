@@ -1,10 +1,12 @@
 package com.github.kospiotr.springcore;
 
 import com.github.kospiotr.springcore.model.User;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 public class UserScoreRegistry {
 
 	private Map<User, Integer> lastScoreForUser = new ConcurrentHashMap<>();
