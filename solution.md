@@ -436,8 +436,7 @@ score = 126000
 
 * Mark class with ```@Component``` or ```@Named```
 * Mark ```fraudDetector``` with ```@Autowired``` and ```@Qualifier("polishFraudDetector")``` 
-* Mark ```scoringRules``` with ```@Autowired```
-* Mark ```userScoreRegistry``` with ```@Autowired```
+* Mark ```scoringRules``` and ```userScoreRegistry``` with ```@Autowired``` or ```@Inject```
 
 ```UserScoreRegistry``` , ```AgeScoringRule``` , ```JobScoringRule``` :
 
@@ -454,5 +453,12 @@ score = 126000
 ```RememberingLastScoreRule``` :
 
 * Mark class with ```@Component``` or ```@Named```
-* Mark constructor with ```@Autowired```
+* Mark constructor with ```@Autowired``` or ```@Inject```
     
+
+* Inject dependencies with constructor
+
+```ScoreCalculator``` :
+* Remove annotations from fields 
+* Mark constructor with ```@Autowired``` or ```@Inject``` and add ```@Qualifier("polishFraudDetector")``` to ```fraudDetector``` parameter:
+
