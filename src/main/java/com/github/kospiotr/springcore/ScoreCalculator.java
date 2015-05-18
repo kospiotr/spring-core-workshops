@@ -12,6 +12,7 @@ public class ScoreCalculator {
 	private List<ScoringRule> scoringRules;
 
 	public static ScoreCalculator createInstance(FraudDetector fraudDetector, List<ScoringRule> scoringRules) {
+		System.out.println("Constructing with ScoreCalculator factory method");
 		return new ScoreCalculator(fraudDetector, scoringRules);
 	}
 
