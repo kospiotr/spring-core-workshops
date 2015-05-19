@@ -64,7 +64,7 @@ mvn clean install
 Run with Maven:
 
 ```bash
-mvn clean exec:java
+mvn exec:java
 ```
 
 And make sure you have following console output:
