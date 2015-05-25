@@ -1,19 +1,23 @@
 package com.github.kospiotr.springcore;
 
 import com.github.kospiotr.springcore.fraud.FraudDetector;
+import com.github.kospiotr.springcore.fraud.PolishFraudDetector;
 import com.github.kospiotr.springcore.model.Loan;
+import com.github.kospiotr.springcore.scoring.AgeScoringRule;
+import com.github.kospiotr.springcore.scoring.JobScoringRule;
 import com.github.kospiotr.springcore.scoring.ScoringRule;
 
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 public class ScoreCalculator {
 
 	private FraudDetector fraudDetector;
 	private List<ScoringRule> scoringRules;
 
-	public static ScoreCalculator createInstance(FraudDetector fraudDetector, List<ScoringRule> scoringRules) {
-		System.out.println("Constructing with ScoreCalculator factory method");
-		return new ScoreCalculator(fraudDetector, scoringRules);
+	public static ScoreCalculator createInstance() {
+		return new ScoreCalculator(new PolishFraudDetector(), asList(new AgeScoringRule(), new JobScoringRule()));
 	}
 
 	public ScoreCalculator() {
