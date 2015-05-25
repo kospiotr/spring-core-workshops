@@ -12,6 +12,8 @@ public class LoansHistoryScoringRule implements ScoringRule {
 
 	@Override
 	public Integer getScore(Loan loan) {
-		return previousScore += 100;
+		int out = previousScore += 100;
+		System.out.println("Calculating historical score = " + out + " using: " + toString());
+		return out;
 	}
 }
