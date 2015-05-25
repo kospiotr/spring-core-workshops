@@ -124,14 +124,15 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 * Inject dependencies with constructor
 * Try to register two ScoreCalculators, one for PL, one for UK
 
+## Lifecycle
+
+* Add ```UserScoreRegistry``` to initialize webservice after constructing object
+
 ## Properties
 
 * Create sample String properties in ```UserScoreRegistry``` with default values. We assume using webservice and we will use credentials to access it and then  store and retrieve values - just print out ```username``` and ```password``` fields
 * Move webservice login and password to properties file
 
-## Lifecycle
-
-* Add ```UserScoreRegistry``` to initialize webservice after constructing object
 
 ## Java Config
 
