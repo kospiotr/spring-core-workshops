@@ -7,7 +7,8 @@
     <bean id="englishFraudDetector" class="com.github.kospiotr.springcore.fraud.EnglishFraudDetector"/>
     <bean id="jobScoringRule" class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
     <bean id="ageScoringRule" class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
-    <bean id="loansHistoryScoringRule" class="com.github.kospiotr.springcore.scoring.LoansHistoryScoringRule"/>
+    <bean id="loansHistoryScoringRule" class="com.github.kospiotr.springcore.scoring.LoansHistoryScoringRule"
+          scope="prototype"/>
 
     <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
         <property name="fraudDetector" ref="englishFraudDetector"/>
