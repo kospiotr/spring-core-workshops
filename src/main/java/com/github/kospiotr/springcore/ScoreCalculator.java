@@ -20,7 +20,7 @@ public class ScoreCalculator {
 		return new ScoreCalculator(new PolishFraudDetector(), asList(new AgeScoringRule(), new JobScoringRule()));
 	}
 
-	private ScoreCalculator() {
+	public ScoreCalculator() {
 		System.out.println("Constructing ScoreCalculator");
 	}
 
