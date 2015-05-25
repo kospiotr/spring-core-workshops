@@ -112,7 +112,7 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 ## Scopes
 
 * Easy exercise: Register ```LoansHistoryScoringRule``` to PL and UK calculator as inner bean verify if score is proper. Change ```LoansHistoryScoringRule``` to an outer bean and verify if score is proper. How to fix it?
-* Very hard exercise: Make a new ```ScoringRule``` : remembering last score for a given user. Add %10 points of last score to new score. Add this rule to ```scoringRules``` in ```ScoreCalculator``` for PL and UK calculators. What is wrong with the score? How to fix it?
+* Very hard exercise: Make a new ```ScoringRule``` : remembering last score for a given user. Add %10 points of last score to new score. Add this rule to ```scoringRules``` in ```ScoreCalculator``` for PL and UK calculators. What is wrong with the score? How to fix it? Does prototype scope solves all issues?
 
 ## Autowire
 
