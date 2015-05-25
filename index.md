@@ -9,27 +9,30 @@ layout: default
 
 # Agenda
 
-##Day 1
+##Track 1 - Spring Core
 
-* Spring Core
+* Part I
   * Motivation
   * XML configuration
   * Object management
+* Part II
   * Scope
   * Lifecycle
-  * Dependency injection
-  * Profiles
+  * Autowiring
+  * Annotations
+* Part III
+  * Properties
   * Java configuration
   * Testing
   
 * Lectures: [http://kospiotr.github.io/wiki/spring-framework-core.html](http://kospiotr.github.io/wiki/spring-framework-core.html)
 
-##Day 2
+##Track 2
 
 * Spring MVC [TBD]
 * Spring AOP [TBD]
 
-##Day 3
+##Track 3
 
 * Spring + JPA [TBD]
 * Spring Boot [TBD]
