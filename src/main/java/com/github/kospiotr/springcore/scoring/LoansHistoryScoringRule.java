@@ -7,7 +7,7 @@ public class LoansHistoryScoringRule implements ScoringRule {
 	private int previousScore = 0;
 
 	public LoansHistoryScoringRule() {
-		System.out.println("Constructed LoansHistoryScoringRule");
+		System.out.println("Constructed LoansHistoryScoringRule " + toString());
 	}
 
 	@Override
