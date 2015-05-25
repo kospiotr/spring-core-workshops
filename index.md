@@ -25,14 +25,14 @@ layout: default
   * Java configuration
   * Testing
   
-* Lectures: [http://kospiotr.github.io/wiki/spring-framework-core.html](http://kospiotr.github.io/wiki/spring-framework-core.html)
+Lectures: [http://kospiotr.github.io/wiki/spring-framework-core.html](http://kospiotr.github.io/wiki/spring-framework-core.html)
 
-##Track 2
+##Track 2 - aspects and persistence
 
 * Spring MVC [TBD]
 * Spring AOP [TBD]
 
-##Track 3
+##Track 3 - web environment
 
 * Spring + JPA [TBD]
 * Spring Boot [TBD]
