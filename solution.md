@@ -42,7 +42,8 @@ System.out.println("score = " + calculator.getScore(loan));
 ```context.xml``` :
 
 ```xml
-<bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator" factory-method="createInstance"/>
+<bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator" 
+    factory-method="createInstance"/>
 ```
 
 # Register ScoreCalculator with setter injection
