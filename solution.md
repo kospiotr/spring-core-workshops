@@ -88,7 +88,8 @@ System.out.println("score = " + calculator.getScore(loan));
     </property>
 </bean>
 
-<bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator" parent="scoringRules">
+<bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator" 
+    parent="scoringRules">
     <property name="fraudDetector">
         <bean class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
     </property>
