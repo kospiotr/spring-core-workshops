@@ -103,18 +103,16 @@ Loans scoring system. You give it a Loan Application (application - somebody app
 
 ## XML configuration source
 
-* Register ```ScoreCalculator``` with constructor injection
-* Register ```ScoreCalculator``` with a factory method
-* Register ```ScoreCalculator``` with setter injection
-* Register ```ScoringRules``` with a parent (bean definition inheritance)
-* Register two ```ScoreCalculators``` , one for PL, one for UK
+* Easy exercise: Register ```ScoreCalculator``` with constructor injection
+* Very easy exercise: Register ```ScoreCalculator``` with a factory method
+* Very easy exercise: Register ```ScoreCalculator``` with setter injection
+* Hard exercise: Register ```ScoringRules``` with a parent (bean definition inheritance)
+* Very easy exercise: Register two ```ScoreCalculators``` , one for PL, one for UK
 
 ## Scopes
 
-* Make a new ```ScoringRule``` : remembering last score for a given user. Add %10 points of last score to new score.
-* Add this rule to ```scoringRules``` in ```ScoreCalculator``` . Register it once, and verify what object hash for this rule, both scoring calculators (PL and UK) have.
-* Make it so that each ```ScoreCalculator``` has a different instance of this bean, using prototype scope.
-* Check if object hashes differ between this rule for PL and UK
+* Easy exercise: Register ```LoansHistoryScoringRule``` to PL and UK calculator as inner bean verify if score is proper. Change ```LoansHistoryScoringRule``` to an outer bean and verify if score is proper. How to fix it?
+* Very hard exercise: Make a new ```ScoringRule``` : remembering last score for a given user. Add %10 points of last score to new score. Add this rule to ```scoringRules``` in ```ScoreCalculator``` for PL and UK calculators. What is wrong with the score? How to fix it?
 
 ## Autowire
 

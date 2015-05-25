@@ -145,13 +145,15 @@ Without using inheritance:
 
     <bean id="polishFraudDetector" class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
     <bean id="englishFraudDetector" class="com.github.kospiotr.springcore.fraud.EnglishFraudDetector"/>
+    <bean id="jobScoringRule" class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
+    <bean id="ageScoringRule" class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
 
     <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
         <property name="fraudDetector" ref="englishFraudDetector"/>
         <property name="scoringRules">
             <list>
-                <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
-                <bean class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
+                <ref bean="jobScoringRule"/>
+                <ref bean="ageScoringRule"/>
             </list>
         </property>
     </bean>
@@ -160,8 +162,8 @@ Without using inheritance:
         <property name="fraudDetector" ref="polishFraudDetector"/>
         <property name="scoringRules">
             <list>
-                <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
-                <bean class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
+                <ref bean="jobScoringRule"/>
+                <ref bean="ageScoringRule"/>
             </list>
         </property>
     </bean>
