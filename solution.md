@@ -188,7 +188,7 @@ System.out.println("score = " + enCalculator.getScore(loan));
 System.out.println("score = " + enCalculator.getScore(loan));
 ```
 
-#Register two ScoreCalculators, one for PL, one for UK
+#Register ```LoansHistoryScoringRule``` to PL and UK calculator as an inner bean verify if score is proper
 
 * Level: easy
 * Branch: ```register_historical_rule_inner```
@@ -206,7 +206,132 @@ System.out.println("score = " + enCalculator.getScore(loan));
     <bean id="englishFraudDetector" class="com.github.kospiotr.springcore.fraud.EnglishFraudDetector"/>
     <bean id="jobScoringRule" class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
     <bean id="ageScoringRule" class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
+
+    <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
+        <property name="fraudDetector" ref="englishFraudDetector"/>
+        <property name="scoringRules">
+            <list>
+                <ref bean="jobScoringRule"/>
+                <ref bean="ageScoringRule"/>
+                <bean class="com.github.kospiotr.springcore.scoring.LoansHistoryScoringRule"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="enCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
+        <property name="fraudDetector" ref="polishFraudDetector"/>
+        <property name="scoringRules">
+            <list>
+                <ref bean="jobScoringRule"/>
+                <ref bean="ageScoringRule"/>
+                <bean class="com.github.kospiotr.springcore.scoring.LoansHistoryScoringRule"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
+```
+
+```App``` :
+
+```java
+Loan loan = new Loan(1000, User.youngRichUser());
+
+ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml");
+ScoreCalculator plCalculator = ctx.getBean("plCalculator", ScoreCalculator.class);
+System.out.println("score = " + plCalculator.getScore(loan));
+System.out.println("score = " + plCalculator.getScore(loan));
+System.out.println("score = " + plCalculator.getScore(loan));
+
+ScoreCalculator enCalculator = ctx.getBean("enCalculator", ScoreCalculator.class);
+System.out.println("score = " + enCalculator.getScore(loan));
+System.out.println("score = " + enCalculator.getScore(loan));
+System.out.println("score = " + enCalculator.getScore(loan));
+```
+
+#Register ```LoansHistoryScoringRule``` to PL and UK calculator as an outer bean verify if score is proper
+
+* Level: easy
+* Branch: ```register_historical_rule_outer```
+* Use inner bean bean
+
+```context.xml``` :
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="polishFraudDetector" class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
+    <bean id="englishFraudDetector" class="com.github.kospiotr.springcore.fraud.EnglishFraudDetector"/>
+    <bean id="jobScoringRule" class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
+    <bean id="ageScoringRule" class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
     <bean id="loansHistoryScoringRule" class="com.github.kospiotr.springcore.scoring.LoansHistoryScoringRule"/>
+
+    <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
+        <property name="fraudDetector" ref="englishFraudDetector"/>
+        <property name="scoringRules">
+            <list>
+                <ref bean="jobScoringRule"/>
+                <ref bean="ageScoringRule"/>
+                <ref bean="loansHistoryScoringRule"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="enCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
+        <property name="fraudDetector" ref="polishFraudDetector"/>
+        <property name="scoringRules">
+            <list>
+                <ref bean="jobScoringRule"/>
+                <ref bean="ageScoringRule"/>
+                <ref bean="loansHistoryScoringRule"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
+```
+
+```App``` :
+
+```java
+Loan loan = new Loan(1000, User.youngRichUser());
+
+ApplicationContext ctx = new ClassPathXmlApplicationContext("context.xml");
+ScoreCalculator plCalculator = ctx.getBean("plCalculator", ScoreCalculator.class);
+System.out.println("score = " + plCalculator.getScore(loan));
+System.out.println("score = " + plCalculator.getScore(loan));
+System.out.println("score = " + plCalculator.getScore(loan));
+
+ScoreCalculator enCalculator = ctx.getBean("enCalculator", ScoreCalculator.class);
+System.out.println("score = " + enCalculator.getScore(loan));
+System.out.println("score = " + enCalculator.getScore(loan));
+System.out.println("score = " + enCalculator.getScore(loan));
+```
+
+
+#Register ```LoansHistoryScoringRule``` to PL and UK calculator as an outer bean with prototype scope
+
+* Level: easy
+* Branch: ```register_historical_rule_outer_prototype````
+* Use inner bean bean
+
+```context.xml``` :
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="polishFraudDetector" class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
+    <bean id="englishFraudDetector" class="com.github.kospiotr.springcore.fraud.EnglishFraudDetector"/>
+    <bean id="jobScoringRule" class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
+    <bean id="ageScoringRule" class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
+    <bean id="loansHistoryScoringRule" class="com.github.kospiotr.springcore.scoring.LoansHistoryScoringRule" 
+        scope="prototype"/>
 
     <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator">
         <property name="fraudDetector" ref="englishFraudDetector"/>
@@ -422,7 +547,6 @@ EN:
 score = 126000
 score = 126000
 ```
-
 
 # Make both ScoreCalculator autowire dependencies
 
