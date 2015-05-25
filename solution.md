@@ -37,22 +37,12 @@ System.out.println("score = " + calculator.getScore(loan));
 
 * Level: medium
 * Branch: ```register_calculator_scorecalculator_with_a_factory_method```
-* Use ```PolishFraudDetector``` inner bean
-* Use empty ```ScoringRule``` list
 * What is scoring result for young and rich user? - 0
 
 ```context.xml``` :
 
 ```xml
-<bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator" factory-method="createInstance">
-    <constructor-arg>
-        <bean class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
-    </constructor-arg>
-    <constructor-arg>
-        <list>
-        </list>
-    </constructor-arg>
-</bean>
+<bean id="calculator" class="com.github.kospiotr.springcore.ScoreCalculator" factory-method="createInstance"/>
 ```
 
 # Register ScoreCalculator with setter injection
