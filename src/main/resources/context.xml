@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="polishFraudDetector" class="com.github.kospiotr.springcore.fraud.PolishFraudDetector"/>
     <bean id="englishFraudDetector" class="com.github.kospiotr.springcore.fraud.EnglishFraudDetector"/>
     <bean id="userScoreRegistry" class="com.github.kospiotr.springcore.UserScoreRegistry"/>
 
-    <util:list id="rulesList" value-type="com.github.kospiotr.springcore.scoring.ScoringRule">
-        <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
-        <bean class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
-        <bean class="com.github.kospiotr.springcore.scoring.RememberingLastScoreRule">
-            <constructor-arg ref="userScoreRegistry"/>
-        </bean>
-    </util:list>
-
     <bean id="plCalculator" class="com.github.kospiotr.springcore.ScoreCalculator" autowire="byType">
         <property name="fraudDetector" ref="polishFraudDetector"/>
-        <property name="scoringRules" ref="rulesList"/>
+        <property name="scoringRules">
+            <list>
+                <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
+                <bean class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
+                <bean class="com.github.kospiotr.springcore.scoring.RememberingLastScoreRule">
+                    <constructor-arg ref="userScoreRegistry"/>
+                </bean>
+            </list>
+        </property>
     </bean>
 
     <bean id="enCalculator" class="com.github.kospiotr.springcore.ScoreCalculator" autowire="byType">
         <property name="fraudDetector" ref="englishFraudDetector"/>
-        <property name="scoringRules" ref="rulesList"/>
+        <property name="scoringRules">
+            <list>
+                <bean class="com.github.kospiotr.springcore.scoring.JobScoringRule"/>
+                <bean class="com.github.kospiotr.springcore.scoring.AgeScoringRule"/>
+                <bean class="com.github.kospiotr.springcore.scoring.RememberingLastScoreRule">
+                    <constructor-arg ref="userScoreRegistry"/>
+                </bean>
+            </list>
+        </property>
     </bean>
 
 </beans>
